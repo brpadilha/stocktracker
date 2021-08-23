@@ -7,6 +7,9 @@ class Company < ApplicationRecord
   validates :risk_factor, presence: true, inclusion: {in: RISK_FACTORS}
 
   validate :validate_length_of_ticker_symbol
+
+  before_save :capitalize_ticker_symbol
+
   has_many :stock_prices
 
   def validate_length_of_ticker_symbol
@@ -15,6 +18,10 @@ class Company < ApplicationRecord
         self.errors.add(:ticker_symbol, 'Length should be at least 2 and at most 4')
     end
     end    
+  end
+
+  def capitalize_ticker_symbol
+    self.ticker_symbol = self.ticker_symbol.upcase
   end
 
 

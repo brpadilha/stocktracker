@@ -10,14 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_163658) do
+ActiveRecord::Schema.define(version: 2021_08_23_174730) do
 
   create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.string "ticker_symbol"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "risk_factor"
+    t.string "name", null: false
+    t.string "ticker_symbol", null: false
+    t.string "risk_factor", null: false
+  end
+
+  create_table "crypto_prices", force: :cascade do |t|
+    t.decimal "price"
+    t.integer "cryptocurrency_id", null: false
+    t.date "captured_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cryptocurrency_id"], name: "index_crypto_prices_on_cryptocurrency_id"
+  end
+
+  create_table "cryptocurrencies", force: :cascade do |t|
+    t.string "name"
+    t.date "started_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "stock_prices", force: :cascade do |t|
@@ -29,5 +45,6 @@ ActiveRecord::Schema.define(version: 2021_08_23_163658) do
     t.index ["company_id"], name: "index_stock_prices_on_company_id"
   end
 
+  add_foreign_key "crypto_prices", "cryptocurrencies"
   add_foreign_key "stock_prices", "companies"
 end
