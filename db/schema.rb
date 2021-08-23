@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_144135) do
+ActiveRecord::Schema.define(version: 2021_08_23_163658) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "ticker_symbol"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "risk_factor"
   end
 
   create_table "stock_prices", force: :cascade do |t|
